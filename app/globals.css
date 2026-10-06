@@ -2,25 +2,220 @@
 
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #16151a;
+  --muted: #5f5c66;
+  --line: #e6e4ea;
+  --ink: #16151a;
+  --orange: #ee8b3a; /* 명함 선셋 오렌지 */
+  --orange-deep: #c8681c;
+  --amber: #f7c68e; /* 피치 */
+  --teal: #2f8a8c;
+  --teal-deep: #1f6668;
+  --sky: #cfeefa;
+  --soft: #f6f5f8;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-ink: var(--ink);
+  --color-orange: var(--orange);
+  --color-orange-deep: var(--orange-deep);
+  --color-amber: var(--amber);
+  --color-teal: var(--teal);
+  --color-teal-deep: var(--teal-deep);
+  --color-sky: var(--sky);
+  --color-soft: var(--soft);
+  --font-sans: var(--font-sans-kr), "Apple SD Gothic Neo", "Malgun Gothic",
+    sans-serif;
+  --font-serif: var(--font-serif-kr), "Apple Myungjo", "Nanum Myeongjo", serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* 클릭할 수 있는 요소는 손가락 커서 */
+a[href],
+button:not(:disabled),
+select,
+summary,
+[role="button"],
+label:has(> select) {
+  cursor: pointer;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans);
+  word-break: keep-all;
+}
+
+/* 명함 상단 그라데이션(블랙 → 주황 → 청록)을 크게 번지는 빛으로 */
+.aurora {
+  background-color: #141318;
+  background-image:
+    radial-gradient(55% 60% at 18% 8%, rgba(238, 139, 58, 0.95) 0%, rgba(238, 139, 58, 0) 65%),
+    radial-gradient(45% 50% at 58% -5%, rgba(247, 198, 142, 0.8) 0%, rgba(247, 198, 142, 0) 60%),
+    radial-gradient(55% 60% at 90% 30%, rgba(47, 138, 140, 0.85) 0%, rgba(47, 138, 140, 0) 65%),
+    radial-gradient(45% 45% at 5% 55%, rgba(47, 138, 140, 0.55) 0%, rgba(47, 138, 140, 0) 60%),
+    radial-gradient(40% 40% at 0% 0%, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 60%),
+    linear-gradient(180deg, #141318 0%, #1a1922 55%, #1a1922 100%);
+}
+
+.aurora-fade {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, #ffffff 100%);
+}
+
+/* 밴드 섹션: 무대 조명 느낌 */
+.stage {
+  background-color: #121116;
+  background-image:
+    radial-gradient(40% 55% at 10% 0%, rgba(238, 139, 58, 0.55) 0%, rgba(238, 139, 58, 0) 60%),
+    radial-gradient(45% 55% at 95% 100%, rgba(47, 138, 140, 0.5) 0%, rgba(47, 138, 140, 0) 60%),
+    radial-gradient(30% 40% at 60% 20%, rgba(247, 198, 142, 0.18) 0%, rgba(247, 198, 142, 0) 60%);
+}
+
+/* 그라데이션 글자 */
+/* 강조 글자: 단색 라이트 코퍼 (어두운 배경용) */
+.grad-text {
+  background: linear-gradient(90deg, #ffb877 0%, #ffe3c4 50%, #a3e4e8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* 히어로 "솔라시도": 광택 글자 + 배경과 분리되는 그림자 */
+.hero-shadow {
+  filter: drop-shadow(0 3px 16px rgba(0, 0, 0, 0.45));
+}
+
+/* 명함 색 그라데이션(선셋 오렌지 → 피치 → 청록) 위로 흰 빛줄기가 훑고 지나감 */
+.shine-text {
+  background-image:
+    linear-gradient(105deg, transparent 42%, rgba(255, 255, 255, 0.95) 50%, transparent 58%),
+    linear-gradient(90deg, #ff8a2a 0%, #ffb46a 45%, #7fd6dd 100%);
+  background-size: 250% 100%, 100% 100%;
+  background-position: 120% 0, 0 0;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: shine 8s ease-in-out infinite;
+}
+@keyframes shine {
+  0% { background-position: 120% 0, 0 0; }
+  55%, 100% { background-position: -20% 0, 0 0; }
+}
+
+.grad-line {
+  background: linear-gradient(90deg, #ee8b3a, #f7c68e, #2f8a8c);
+}
+
+/* 오선지 */
+.staff {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    rgba(22, 21, 26, 0.14) 0,
+    rgba(22, 21, 26, 0.14) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+  background-size: 100% 37px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+/* 마키 */
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+/* 스크롤 등장 */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition:
+    opacity 0.8s cubic-bezier(0.2, 0.7, 0.2, 1),
+    transform 0.8s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* 히어로 등장 */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+.rise {
+  animation: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+}
+.rise-1 { animation-delay: 0.05s; }
+.rise-2 { animation-delay: 0.2s; }
+.rise-3 { animation-delay: 0.35s; }
+.rise-4 { animation-delay: 0.5s; }
+
+@keyframes drift {
+  0%, 100% { transform: translateY(0) rotate(var(--r, 0deg)); }
+  50% { transform: translateY(-10px) rotate(var(--r, 0deg)); }
+}
+.drift {
+  animation: drift 7s ease-in-out infinite;
+}
+
+/* 히어로 사진 조각 교차 전환 (3장, 12초 주기) */
+@keyframes xfade {
+  0% { opacity: 1; }
+  30% { opacity: 1; }
+  38% { opacity: 0; }
+  92% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.xfade > span {
+  opacity: 0;
+  animation: xfade 12s ease-in-out infinite;
+}
+.xfade > span:first-child {
+  opacity: 1;
+}
+
+/* 오선 음표: 마디마다 솔 → 라 → 시 → 도 순서로 나타났다 사라짐 */
+@keyframes note-pop {
+  0% { opacity: 0; transform: translateY(6px); }
+  8% { opacity: 1; transform: none; }
+  75% { opacity: 1; transform: none; }
+  88%, 100% { opacity: 0; transform: none; }
+}
+.note-pop {
+  opacity: 0;
+  animation: note-pop 5s cubic-bezier(0.2, 0.7, 0.2, 1) infinite both;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.spin-slow {
+  animation: spin 40s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track, .rise, .drift, .spin-slow, .xfade > span, .note-pop { animation: none; }
+  .shine-text { animation: none; }
+  .note-pop { opacity: 1; }
+  .reveal { opacity: 1; transform: none; transition: none; }
 }
