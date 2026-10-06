@@ -62,7 +62,7 @@ export default function ContactForm() {
         <textarea
           rows={4}
           className="w-full min-w-0 rounded-xl border border-line bg-soft px-4 py-3 text-base"
-          placeholder="행사 날짜, 장소, 인원 또는 배우고 싶은 과목을 적어 주세요."
+          placeholder="행사 날짜, 장소, 인원 또는 배우고 싶은 분야를 적어 주세요."
         />
       </label>
       <button

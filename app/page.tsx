@@ -446,36 +446,56 @@ export default function Home() {
               <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr]">
                 <div className="aurora relative flex flex-col gap-5 p-7 md:gap-6 md:p-14">
                   <Eyebrow light>CONTACT</Eyebrow>
-                  <h2 className="font-serif text-3xl font-bold leading-tight md:text-5xl">
-                    편하게
-                    <br className="hidden md:block" /> 문의하세요.
+                  <h2 className="font-serif text-[28px] font-bold leading-[1.3] md:text-[44px] md:leading-[1.2]">
+                    어떤 무대를
+                    <br /> 준비하고 계신가요?
                   </h2>
-                  <p className="hidden text-base leading-7 text-white/80 md:block md:text-lg">
+                  <p className="hidden text-[15px] leading-7 text-white/75 md:block md:text-lg md:leading-8">
                     행사 날짜와 장소, 또는 배우고 싶은 악기를 알려 주세요.
                     <br className="hidden md:block" /> 담당자가 직접 연락드립니다.
                   </p>
 
-                  <dl className="mt-auto hidden gap-4 border-t border-white/15 pt-7 text-[15px] md:grid">
+                  <dl className="mt-auto hidden gap-3 border-t border-white/15 pt-6 text-[15px] md:grid">
                     <div className="flex gap-4">
                       <dt className="w-[4.5rem] shrink-0 text-white/55">주소</dt>
                       <dd className="text-white/90">전남 해남군 해남읍 남동길 4, 2층</dd>
-                    </div>
-                    <div className="flex gap-4">
-                      <dt className="w-[4.5rem] shrink-0 text-white/55">상담 시간</dt>
-                      <dd className="text-white/90">10:00 ~ 19:00 · 주말 행사 시 전화 문의</dd>
                     </div>
                     <div className="flex gap-4">
                       <dt className="w-[4.5rem] shrink-0 text-white/55">문의 분야</dt>
                       <dd className="text-white/90">행사기획 · 공연 섭외 · 보컬 레슨 · 악기 레슨</dd>
                     </div>
                   </dl>
-                  <div className="flex flex-wrap gap-3 pt-1">
-                    <a href="#" className="rounded-full bg-[#FEE500] px-7 py-4 text-center text-base font-semibold leading-none text-[#191919]">
-                      카카오톡 상담
-                    </a>
-                    <a href="tel:010-2376-7518" className="rounded-full bg-white px-7 py-4 text-center text-base font-semibold leading-none text-ink transition-colors hover:bg-amber">
-                      전화 상담
-                    </a>
+
+                  {/* 상담 채널 카드: 아이콘 타일 + 제목 + 한 줄 설명 + 화살표 */}
+                  <div className="grid grid-cols-2 gap-2.5 md:gap-3">
+                    {[
+                      {
+                        title: "카카오톡 상담",
+                        tile: "bg-[#FEE500] text-[#191919]",
+                        icon: (
+                          <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor"><path d="M12 3.5c-5.25 0-9.5 3.33-9.5 7.44 0 2.6 1.71 4.9 4.3 6.22l-.92 3.4c-.08.3.26.54.52.37l4.03-2.66c.52.07 1.05.11 1.57.11 5.25 0 9.5-3.33 9.5-7.44S17.25 3.5 12 3.5Z" /></svg>
+                        ),
+                      },
+                      {
+                        title: "전화 상담",
+                        tile: "bg-white text-ink",
+                        icon: (
+                          <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z" /></svg>
+                        ),
+                      },
+                    ].map((c) => (
+                      // 시안 단계라 실제로 눌리지는 않게 두고, 커서만 손가락으로 표시
+                      <div
+                        key={c.title}
+                        className="group flex cursor-pointer items-center gap-2.5 rounded-2xl bg-white/[0.08] p-2.5 ring-1 ring-white/15 backdrop-blur transition-colors hover:bg-white/[0.14] md:gap-3 md:p-3.5"
+                      >
+                        <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl md:h-10 md:w-10 ${c.tile}`}>{c.icon}</span>
+                        <span className="flex min-w-0 flex-1 flex-col">
+                          <span className="whitespace-nowrap text-sm font-semibold leading-tight text-white md:text-[15px]">{c.title}</span>
+                        </span>
+                        <svg aria-hidden viewBox="0 0 24 24" className="hidden h-4 w-4 shrink-0 text-white/50 transition-transform group-hover:translate-x-0.5 group-hover:text-white sm:block" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+                      </div>
+                    ))}
                   </div>
                 </div>
 
