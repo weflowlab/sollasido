@@ -111,15 +111,15 @@ function PhotoSlot({ photos, className = INLINE_SLOT }: { photos: { src: string;
   );
 }
 
-/** 카카오톡·전화 상담 카드. 히어로와 문의 섹션에서 똑같이 쓴다. 카카오톡은 문의 폼으로, 전화는 대표 번호로 연결 */
+/** 문의하기·전화 상담 카드. 히어로와 문의 섹션에서 똑같이 쓴다. 문의하기는 문의 폼으로, 전화는 대표 번호로 연결 */
 function ChannelCards({ place = "hero" }: { place?: "hero" | "contact" }) {
   const cards = [
     {
-      title: "카카오톡 상담",
+      title: "문의하기",
       href: "#contact", // 문의 폼으로 이동
-      tile: "bg-[#FEE500] text-[#191919]",
+      tile: "bg-orange text-white",
       icon: (
-        <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor"><path d="M12 3.5c-5.25 0-9.5 3.33-9.5 7.44 0 2.6 1.71 4.9 4.3 6.22l-.92 3.4c-.08.3.26.54.52.37l4.03-2.66c.52.07 1.05.11 1.57.11 5.25 0 9.5-3.33 9.5-7.44S17.25 3.5 12 3.5Z" /></svg>
+        <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" /><path d="M18.4 2.6a1.4 1.4 0 0 1 3 3l-9 9a2 2 0 0 1-.85.5l-2.87.84a.5.5 0 0 1-.62-.62l.84-2.87a2 2 0 0 1 .5-.85Z" /></svg>
       ),
     },
     {
@@ -144,8 +144,8 @@ function ChannelCards({ place = "hero" }: { place?: "hero" | "contact" }) {
             // 문의 섹션은 문구를 1px 더 위로
             place === "contact" ? "-top-[1.5px]" : "-top-[0.5px]"
           } ${
-            // 문의 섹션의 카카오톡 문구만 4px 오른쪽으로
-            place === "contact" && c.title === "카카오톡 상담" ? "-left-[3px]" : "-left-[7px]"
+            // 문의 섹션의 첫 카드 문구만 4px 오른쪽으로
+            place === "contact" && c.title === "문의하기" ? "-left-[3px]" : "-left-[7px]"
           } whitespace-nowrap text-center text-sm font-semibold leading-none text-white md:text-[15px]`}>{c.title}</span>
           <svg aria-hidden viewBox="0 0 24 24" className="hidden h-4 w-4 shrink-0 text-white/50 transition-transform group-hover:translate-x-0.5 group-hover:text-white sm:block" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
         </a>
