@@ -111,8 +111,21 @@ function PhotoSlot({ photos, className = INLINE_SLOT }: { photos: { src: string;
   );
 }
 
-/** 문의하기·전화 상담 카드. 히어로와 문의 섹션에서 똑같이 쓴다. 문의하기는 문의 폼으로, 전화는 대표 번호로 연결 */
+/** 상담 카드 두 개. 히어로는 문의하기·전화 상담, 문의 섹션은 카카오톡 상담·전화 상담. 전화는 대표 번호로 연결 */
 function ChannelCards({ place = "hero" }: { place?: "hero" | "contact" }) {
+  // 히어로는 "문의하기", 문의 섹션은 "카카오톡 상담"
+  const first =
+    place === "contact"
+      ? {
+          title: "카카오톡 상담",
+          href: "https://www.kakaocorp.com/page/service/service/openchat", // 카카오톡 오픈채팅 안내 (실제 채널 주소로 교체 예정)
+          external: true,
+          tile: "bg-[#FEE500] text-[#191919]",
+          icon: (
+            <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor"><path d="M12 3.5c-5.25 0-9.5 3.33-9.5 7.44 0 2.6 1.71 4.9 4.3 6.22l-.92 3.4c-.08.3.26.54.52.37l4.03-2.66c.52.07 1.05.11 1.57.11 5.25 0 9.5-3.33 9.5-7.44S17.25 3.5 12 3.5Z" /></svg>
+          ),
+        }
+      : null;
   const cards = [
     {
       title: "문의하기",
@@ -133,10 +146,11 @@ function ChannelCards({ place = "hero" }: { place?: "hero" | "contact" }) {
   ];
   return (
     <div className="grid grid-cols-2 gap-2.5 md:gap-3">
-      {cards.map((c) => (
+      {(first ? [first, cards[1]] : cards).map((c) => (
         <a
           key={c.title}
           href={c.href}
+          {...("external" in c && c.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
           className="group flex items-center gap-2.5 rounded-2xl bg-white/[0.08] p-2.5 text-left ring-1 ring-white/15 backdrop-blur transition-colors hover:bg-white/[0.14] md:gap-3 md:p-3.5"
         >
           <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl md:h-10 md:w-10 ${c.tile}`}>{c.icon}</span>
@@ -145,7 +159,7 @@ function ChannelCards({ place = "hero" }: { place?: "hero" | "contact" }) {
             place === "contact" ? "-top-[1.5px]" : "-top-[0.5px]"
           } ${
             // 문의 섹션의 첫 카드 문구만 4px 오른쪽으로
-            place === "contact" && c.title === "문의하기" ? "-left-[3px]" : "-left-[7px]"
+            place === "contact" && c.title === "카카오톡 상담" ? "-left-[3px]" : "-left-[7px]"
           } whitespace-nowrap text-center text-sm font-semibold leading-none text-white md:text-[15px]`}>{c.title}</span>
           <svg aria-hidden viewBox="0 0 24 24" className="hidden h-4 w-4 shrink-0 text-white/50 transition-transform group-hover:translate-x-0.5 group-hover:text-white sm:block" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
         </a>
@@ -519,11 +533,19 @@ export default function Home() {
               <span className="mt-2 text-sm text-muted">행사기획 · 보컬지도 · 악기지도</span>
             </div>
           </div>
-          <div className="flex flex-col gap-1.5 text-sm text-muted">
-            <span>대표 유광종</span>
-            <span>사업자등록번호 416-20-94943</span>
-            <span>전남 해남군 해남읍 남동길 4, 2층</span>
-          </div>
+          {/* 항목명은 굵게, 값은 보통 굵기로 구분 */}
+          <dl className="flex flex-col gap-1.5 text-sm text-muted">
+            {[
+              ["대표", "유광종"],
+              ["사업자등록번호", "416-20-94943"],
+              ["주소", "전남 해남군 해남읍 남동길 4, 2층"],
+            ].map(([k, v]) => (
+              <div key={k} className="flex gap-2">
+                <dt className="font-semibold text-ink">{k}</dt>
+                <dd>{v}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
         <div className="grad-line h-1 w-full" />
         <div className="mx-auto flex max-w-6xl flex-col gap-2 px-4 py-5 text-xs text-muted md:flex-row md:items-center md:justify-between md:px-6">

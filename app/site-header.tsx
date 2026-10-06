@@ -50,6 +50,8 @@ export default function SiteHeader() {
     let travel = 0; // 같은 방향으로 이어서 스크롤한 거리
     let mouseNearTop = false;
     let ticking = false;
+    // 문의 카드로 이동하는 동안은 헤더가 카드 윗부분(0.5cm 여백)을 덮지 않도록 강제로 숨김
+    let suppressUntil = 0;
 
     const update = () => {
       ticking = false;
@@ -57,6 +59,12 @@ export default function SiteHeader() {
       const dy = y - lastY;
       lastY = y;
       setScrolled(y > HEADER_H);
+
+      if (performance.now() < suppressUntil) {
+        setVisible(false);
+        travel = 0;
+        return;
+      }
 
       if (y <= HEADER_H) {
         setVisible(true);
@@ -80,15 +88,25 @@ export default function SiteHeader() {
       const near = e.clientY <= MOUSE_ZONE;
       if (near !== mouseNearTop) {
         mouseNearTop = near;
-        if (near) setVisible(true);
+        if (near && performance.now() >= suppressUntil) setVisible(true);
       }
+    };
+
+    const onContactClick = (e: MouseEvent) => {
+      const a = (e.target as HTMLElement | null)?.closest('a[href="#contact"]');
+      if (!a) return;
+      suppressUntil = performance.now() + 1600; // 부드러운 스크롤이 끝날 때까지
+      setMenuOpen(false);
+      setVisible(false);
     };
 
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("mousemove", onMouseMove, { passive: true });
+    document.addEventListener("click", onContactClick, true);
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("mousemove", onMouseMove);
+      document.removeEventListener("click", onContactClick, true);
     };
   }, []);
 
