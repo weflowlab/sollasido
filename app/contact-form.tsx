@@ -9,6 +9,10 @@ const OPTIONS = [
   { value: "other", label: "기타" },
 ] as const;
 
+// 입력칸 공통 스타일: OS 기본 모양(iOS 파란 포커스 테두리 등)을 끄고 브랜드 포커스로 통일
+const FIELD =
+  "w-full min-w-0 appearance-none rounded-xl border border-line bg-soft px-4 py-3 text-base text-ink outline-none transition-[border-color,box-shadow] placeholder:text-ink/40 focus:border-orange focus:bg-white focus:ring-4 focus:ring-orange/15";
+
 type Inquiry = (typeof OPTIONS)[number]["value"];
 
 const isInquiry = (v: string | undefined): v is Inquiry =>
@@ -37,31 +41,46 @@ export default function ContactForm() {
       <div className="font-serif text-2xl font-bold">온라인 문의 남기기</div>
       <label className="flex min-w-0 flex-col gap-1.5 text-sm font-medium text-ink/80">
         문의 종류
-        <select
-          value={type}
-          onChange={(e) => setType(e.target.value as Inquiry)}
-          className="w-full min-w-0 rounded-xl border border-line bg-soft px-4 py-3 text-base text-ink"
-        >
-          {OPTIONS.map((o) => (
-            <option key={o.value} value={o.value}>
-              {o.label}
-            </option>
-          ))}
-        </select>
+        <span className="relative block">
+          <select
+            value={type}
+            onChange={(e) => setType(e.target.value as Inquiry)}
+            className={`${FIELD} cursor-pointer pr-11`}
+          >
+            {OPTIONS.map((o) => (
+              <option key={o.value} value={o.value}>
+                {o.label}
+              </option>
+            ))}
+          </select>
+          {/* OS 기본 화살표 대신 같은 모양의 화살표 */}
+          <svg
+            aria-hidden
+            viewBox="0 0 24 24"
+            className="pointer-events-none absolute right-4 top-1/2 h-4 w-4 -translate-y-1/2 text-ink/60"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="m6 9 6 6 6-6" />
+          </svg>
+        </span>
       </label>
       <label className="flex min-w-0 flex-col gap-1.5 text-sm font-medium text-ink/80">
         성함
-        <input className="w-full min-w-0 rounded-xl border border-line bg-soft px-4 py-3 text-base" placeholder="홍길동" />
+        <input className={FIELD} placeholder="홍길동" />
       </label>
       <label className="flex min-w-0 flex-col gap-1.5 text-sm font-medium text-ink/80">
         연락처
-        <input className="w-full min-w-0 rounded-xl border border-line bg-soft px-4 py-3 text-base" placeholder="010-0000-0000" />
+        <input className={FIELD} inputMode="tel" placeholder="010-0000-0000" />
       </label>
       <label className="flex min-w-0 flex-col gap-1.5 text-sm font-medium text-ink/80">
         내용
         <textarea
           rows={4}
-          className="w-full min-w-0 rounded-xl border border-line bg-soft px-4 py-3 text-base"
+          className={`${FIELD} resize-none`}
           placeholder="행사 날짜, 장소, 인원 또는 배우고 싶은 분야를 적어 주세요."
         />
       </label>

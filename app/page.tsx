@@ -111,11 +111,12 @@ function PhotoSlot({ photos, className = INLINE_SLOT }: { photos: { src: string;
   );
 }
 
-/** 카카오톡·전화 상담 카드. 히어로와 문의 섹션에서 똑같이 쓴다. 시안 단계라 눌리지 않고 커서만 손가락 */
+/** 카카오톡·전화 상담 카드. 히어로와 문의 섹션에서 똑같이 쓴다. 카카오톡은 문의 폼으로, 전화는 대표 번호로 연결 */
 function ChannelCards({ place = "hero" }: { place?: "hero" | "contact" }) {
   const cards = [
     {
       title: "카카오톡 상담",
+      href: "#contact", // 문의 폼으로 이동
       tile: "bg-[#FEE500] text-[#191919]",
       icon: (
         <svg aria-hidden viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor"><path d="M12 3.5c-5.25 0-9.5 3.33-9.5 7.44 0 2.6 1.71 4.9 4.3 6.22l-.92 3.4c-.08.3.26.54.52.37l4.03-2.66c.52.07 1.05.11 1.57.11 5.25 0 9.5-3.33 9.5-7.44S17.25 3.5 12 3.5Z" /></svg>
@@ -123,6 +124,7 @@ function ChannelCards({ place = "hero" }: { place?: "hero" | "contact" }) {
     },
     {
       title: "전화 상담",
+      href: "tel:010-2376-7518", // 대표(단장 유광종) 번호로 연결
       tile: "bg-white text-ink",
       icon: (
         <svg aria-hidden viewBox="0 0 24 24" className="h-[18px] w-[18px]" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.4 1.8.7 2.7a2 2 0 0 1-.5 2.1L8 9.8a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.7.7a2 2 0 0 1 1.7 2Z" /></svg>
@@ -132,9 +134,10 @@ function ChannelCards({ place = "hero" }: { place?: "hero" | "contact" }) {
   return (
     <div className="grid grid-cols-2 gap-2.5 md:gap-3">
       {cards.map((c) => (
-        <div
+        <a
           key={c.title}
-          className="group flex cursor-pointer items-center gap-2.5 rounded-2xl bg-white/[0.08] p-2.5 text-left ring-1 ring-white/15 backdrop-blur transition-colors hover:bg-white/[0.14] md:gap-3 md:p-3.5"
+          href={c.href}
+          className="group flex items-center gap-2.5 rounded-2xl bg-white/[0.08] p-2.5 text-left ring-1 ring-white/15 backdrop-blur transition-colors hover:bg-white/[0.14] md:gap-3 md:p-3.5"
         >
           <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl md:h-10 md:w-10 ${c.tile}`}>{c.icon}</span>
           <span className={`relative min-w-0 flex-1 ${
@@ -145,7 +148,7 @@ function ChannelCards({ place = "hero" }: { place?: "hero" | "contact" }) {
             place === "contact" && c.title === "카카오톡 상담" ? "-left-[3px]" : "-left-[7px]"
           } whitespace-nowrap text-center text-sm font-semibold leading-none text-white md:text-[15px]`}>{c.title}</span>
           <svg aria-hidden viewBox="0 0 24 24" className="hidden h-4 w-4 shrink-0 text-white/50 transition-transform group-hover:translate-x-0.5 group-hover:text-white sm:block" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
-        </div>
+        </a>
       ))}
     </div>
   );
@@ -466,8 +469,10 @@ export default function Home() {
         </section>
 
         {/* 문의 */}
-        <section id="contact" className="scroll-mt-20 bg-white">
+        <section className="bg-white">
           <div className="mx-auto max-w-6xl px-4 py-24 md:px-6 md:py-32">
+            {/* 이동 목표는 섹션이 아니라 카드. 떠오르는 효과(reveal)가 없는 바깥 틀에 id를 둬야 멈추는 위치가 정확함 */}
+            <div id="contact" className="scroll-mt-[19px]">
             <div className="reveal overflow-hidden rounded-[36px] bg-white text-white shadow-2xl shadow-black/10 ring-1 ring-line">
               <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr]">
                 <div className="aurora relative flex flex-col gap-5 p-7 md:gap-6 md:p-14">
@@ -497,6 +502,7 @@ export default function Home() {
 
                 <ContactForm />
               </div>
+            </div>
             </div>
           </div>
         </section>

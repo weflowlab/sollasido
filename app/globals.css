@@ -44,6 +44,7 @@ label:has(> select) {
 }
 
 body {
+  -webkit-tap-highlight-color: transparent; /* iOS 터치 시 파란/회색 박스 제거 */
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-sans);
