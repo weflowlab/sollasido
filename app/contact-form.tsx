@@ -32,15 +32,15 @@ export default function ContactForm() {
   }, []);
 
   return (
-    <form className="flex flex-col gap-4 bg-white p-8 text-ink md:p-14">
+    <form className="flex min-w-0 flex-col gap-4 bg-white p-7 text-ink md:p-14">
       {/* 문의 보내기 버튼은 맨 아래에 붙여서 왼쪽 카카오톡·전화 버튼과 같은 줄에 둔다 */}
       <div className="font-serif text-2xl font-bold">온라인 문의 남기기</div>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink/80">
+      <label className="flex min-w-0 flex-col gap-1.5 text-sm font-medium text-ink/80">
         문의 종류
         <select
           value={type}
           onChange={(e) => setType(e.target.value as Inquiry)}
-          className="rounded-xl border border-line bg-soft px-4 py-3 text-base text-ink"
+          className="w-full min-w-0 rounded-xl border border-line bg-soft px-4 py-3 text-base text-ink"
         >
           {OPTIONS.map((o) => (
             <option key={o.value} value={o.value}>
@@ -49,19 +49,19 @@ export default function ContactForm() {
           ))}
         </select>
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink/80">
+      <label className="flex min-w-0 flex-col gap-1.5 text-sm font-medium text-ink/80">
         성함
-        <input className="rounded-xl border border-line bg-soft px-4 py-3 text-base" placeholder="홍길동" />
+        <input className="w-full min-w-0 rounded-xl border border-line bg-soft px-4 py-3 text-base" placeholder="홍길동" />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink/80">
+      <label className="flex min-w-0 flex-col gap-1.5 text-sm font-medium text-ink/80">
         연락처
-        <input className="rounded-xl border border-line bg-soft px-4 py-3 text-base" placeholder="010-0000-0000" />
+        <input className="w-full min-w-0 rounded-xl border border-line bg-soft px-4 py-3 text-base" placeholder="010-0000-0000" />
       </label>
-      <label className="flex flex-col gap-1.5 text-sm font-medium text-ink/80">
+      <label className="flex min-w-0 flex-col gap-1.5 text-sm font-medium text-ink/80">
         내용
         <textarea
           rows={4}
-          className="rounded-xl border border-line bg-soft px-4 py-3 text-base"
+          className="w-full min-w-0 rounded-xl border border-line bg-soft px-4 py-3 text-base"
           placeholder="행사 날짜, 장소, 인원 또는 배우고 싶은 과목을 적어 주세요."
         />
       </label>

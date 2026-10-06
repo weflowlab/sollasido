@@ -121,10 +121,12 @@ function Eyebrow({ children, light = false }: { children: React.ReactNode; light
 }
 
 const MELODY = [
-  { y: 50 }, // 솔
-  { y: 45 }, // 라
-  { y: 40 }, // 시
-  { y: 35 }, // 도
+  // 음악 폰트의 음표 기준점은 머리 아래쪽이라, 머리 중심보다 5(반 칸) 아래 값을 주고
+  // 보기 좋게 1px 더 내렸다
+  { y: 56 }, // 솔: 둘째 줄(50)
+  { y: 51 }, // 라: 둘째·셋째 줄 사이(45)
+  { y: 46 }, // 시: 셋째 줄(40)
+  { y: 41 }, // 도: 셋째·넷째 줄 사이(35)
 ];
 
 /** 좌우 끝까지 이어지는 오선 위에 "솔라시도" 선율 */
@@ -441,7 +443,7 @@ export default function Home() {
         <section id="contact" className="scroll-mt-20 bg-white">
           <div className="mx-auto max-w-6xl px-4 py-24 md:px-6 md:py-32">
             <div className="reveal overflow-hidden rounded-[36px] bg-white text-white shadow-2xl shadow-black/10 ring-1 ring-line">
-              <div className="grid md:grid-cols-[1fr_1fr]">
+              <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr]">
                 <div className="aurora relative flex flex-col gap-5 p-7 md:gap-6 md:p-14">
                   <Eyebrow light>CONTACT</Eyebrow>
                   <h2 className="font-serif text-3xl font-bold leading-tight md:text-5xl">
