@@ -207,6 +207,18 @@ body {
   animation: note-pop 5s cubic-bezier(0.2, 0.7, 0.2, 1) infinite both;
 }
 
+/* 공지 팝업 등장 */
+@keyframes popup-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes popup-rise {
+  from { opacity: 0; transform: translateY(16px) scale(0.98); }
+  to { opacity: 1; transform: none; }
+}
+.popup-fade { animation: popup-fade 0.3s ease-out both; }
+.popup-rise { animation: popup-rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -216,7 +228,7 @@ body {
 
 @media (prefers-reduced-motion: reduce) {
   .marquee-track, .rise, .drift, .spin-slow, .xfade > span, .note-pop { animation: none; }
-  .shine-text { animation: none; }
+  .shine-text, .popup-fade, .popup-rise { animation: none; }
   .note-pop { opacity: 1; }
   .reveal { opacity: 1; transform: none; transition: none; }
 }

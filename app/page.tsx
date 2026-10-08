@@ -2,6 +2,8 @@ import Image from "next/image";
 import Reveal from "./reveal";
 import SiteHeader from "./site-header";
 import ContactForm from "./contact-form";
+import NoticePopup, { NoticePopupTrigger } from "./notice-popup";
+import { POPUP } from "./notice-data";
 
 const u = (id: string, w = 1200) =>
   `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=80`;
@@ -82,6 +84,18 @@ const GALLERY = [
   { src: PHOTOS.g3, alt: "드럼 연주", cls: "md:col-span-1" },
   { src: PHOTOS.g4, alt: "공연 조명", cls: "md:col-span-2" },
   { src: PHOTOS.heroC, alt: "보컬 무대", cls: "col-span-2 md:col-span-6" },
+];
+
+/** 공지 · 이벤트. 가로 2개씩 들어가는 카드. popup: true 면 누르면 공지 팝업을 다시 연다 */
+const NOTICES = [
+  {
+    tag: "공지",
+    title: "제1회 해남가요제 & 축하공연",
+    date: "2026.10.08",
+    image: POPUP.src,
+    alt: "제1회 해남가요제 & 축하공연 포스터",
+    popup: true,
+  },
 ];
 
 const HERO_SLOT_A = [
@@ -246,6 +260,7 @@ export default function Home() {
       <Reveal />
 
       <SiteHeader />
+      <NoticePopup />
 
       {/* 히어로: 이음컴퍼니식 큰 타이포 + 글자 사이 사진 조각, 명함 그라데이션 배경 */}
       <section className="aurora relative overflow-hidden text-white">
@@ -478,6 +493,51 @@ export default function Home() {
                   <Image src={g.src} alt={g.alt} fill sizes="(min-width: 768px) 33vw, 50vw" className="object-cover transition-transform duration-700 hover:scale-105" />
                 </div>
               ))}
+            </div>
+          </div>
+        </section>
+
+        {/* 공지 · 이벤트 */}
+        <section id="notice" className="scroll-mt-20 bg-white">
+          <div className="mx-auto max-w-6xl px-4 pt-24 md:px-6 md:pt-32">
+            <div className="reveal flex flex-col items-start gap-4">
+              <Eyebrow>NOTICE &amp; EVENT</Eyebrow>
+              <h2 className="font-serif text-4xl font-bold leading-tight text-ink md:text-5xl">공지 · 이벤트</h2>
+            </div>
+            <div className="reveal mt-10 grid gap-5 md:mt-12 md:grid-cols-2 md:gap-6">
+              {NOTICES.map((n) => {
+                const body = (
+                  <>
+                    <span className="relative block aspect-[16/10] overflow-hidden bg-soft">
+                      <Image
+                        src={n.image}
+                        alt={n.alt}
+                        fill
+                        sizes="(min-width: 768px) 560px, 100vw"
+                        className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
+                      />
+                    </span>
+                    <span className="flex flex-col gap-2 p-5 md:p-6">
+                      <span className="flex items-center justify-between gap-3">
+                        <span className="rounded-full bg-orange/10 px-3 py-1 text-xs font-semibold text-orange-deep">{n.tag}</span>
+                        <time className="text-sm text-muted">{n.date}</time>
+                      </span>
+                      <span className="font-serif text-xl font-bold leading-snug text-ink md:text-2xl">{n.title}</span>
+                    </span>
+                  </>
+                );
+                const card =
+                  "group flex w-full flex-col overflow-hidden rounded-3xl border border-line bg-white text-left shadow-sm transition-shadow hover:shadow-xl hover:shadow-black/5";
+                return n.popup ? (
+                  <NoticePopupTrigger key={n.title} className={card}>
+                    {body}
+                  </NoticePopupTrigger>
+                ) : (
+                  <div key={n.title} className={card}>
+                    {body}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>
