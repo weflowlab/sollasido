@@ -8,6 +8,7 @@ const NAV = [
   { href: "#services", label: "하는 일" },
   { href: "#band", label: "솔라시도 밴드" },
   { href: "#gallery", label: "공연 갤러리" },
+  { href: "#notice", label: "공지·이벤트" },
   { href: "#contact", label: "문의" },
 ];
 
@@ -152,7 +153,7 @@ export default function SiteHeader() {
               <a
                 key={n.href}
                 href={n.href}
-                className={`px-5 text-[17px] font-semibold transition-colors lg:px-6 ${
+                className={`whitespace-nowrap px-3 text-base font-semibold transition-colors xl:px-5 xl:text-[17px] ${
                   solid ? "text-ink/85 hover:text-orange-deep" : "text-white [text-shadow:0_1px_8px_rgba(0,0,0,0.35)] hover:text-amber"
                 }`}
               >

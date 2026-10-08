@@ -508,7 +508,8 @@ export default function Home() {
               {NOTICES.map((n) => {
                 const body = (
                   <>
-                    <span className="relative block aspect-[16/10] overflow-hidden bg-soft">
+                    {/* iOS 사파리는 버튼 안에서 늘어난 칸의 너비를 확정값으로 보지 않아 비율 높이가 0이 됨 → w-full 명시 */}
+                    <span className="relative block aspect-[16/10] w-full overflow-hidden bg-soft">
                       <Image
                         src={n.image}
                         alt={n.alt}
@@ -517,7 +518,7 @@ export default function Home() {
                         className="object-cover object-top transition-transform duration-700 group-hover:scale-[1.03]"
                       />
                     </span>
-                    <span className="flex flex-col gap-2 p-5 md:p-6">
+                    <span className="flex w-full flex-col gap-2 p-5 md:p-6">
                       <span className="flex items-center justify-between gap-3">
                         <span className="rounded-full bg-orange/10 px-3 py-1 text-xs font-semibold text-orange-deep">{n.tag}</span>
                         <time className="text-sm text-muted">{n.date}</time>
