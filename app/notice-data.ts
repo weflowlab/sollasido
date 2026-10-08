@@ -5,7 +5,7 @@
  */
 export const POPUP = {
   id: "haenam-gayoje-2026",
-  src: "/images/haenam-gayoje-2026.webp",
+  src: "/images/haenam-gayoje-2026-v2.webp", // 10/8 수정본 (개최 목적 문구 "알리고자"로 수정)
   width: 1024,
   height: 1536,
   alt: "제1회 해남가요제 & 축하공연 포스터. 예선 10월 25일 해남군청 예술회관, 본선 11월 14일 해남종합운동장 특설무대",
